@@ -27,3 +27,5 @@ logging:
     org.springframework.security: DEBUG
 server:
   port: ${SERVER_PORT}
+  servlet:
+    context-path: /api/v1

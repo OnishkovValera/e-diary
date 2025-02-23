@@ -27,8 +27,6 @@ public class AuthenticationConfiguration {
         return login -> userRepository.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-
-
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

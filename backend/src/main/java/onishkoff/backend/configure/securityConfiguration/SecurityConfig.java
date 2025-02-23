@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import onishkoff.backend.utils.JwtUtil;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,15 +21,16 @@ import java.util.List;
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 @RequiredArgsConstructor
+@Configuration
 public class SecurityConfig {
 
     private final JwtUtil jwtTokenUtils;
 
     @Order(1)
     @Bean
-    public SecurityFilterChain securityFilterChainForAuthetication(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChainForAuthentication(HttpSecurity http) throws Exception{
         return getHttpBasicConfiguration(http)
-                .securityMatcher("api/v1/login", "api/v1/register")
+                .securityMatcher("/login", "/register")
                 .build();
     }
 
@@ -36,7 +38,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return getHttpBasicConfiguration(http)
-                .securityMatcher("api/v1/**")
+                .securityMatcher("/**")
                 .addFilterBefore(new JwtFilter(jwtTokenUtils), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -66,7 +68,7 @@ public class SecurityConfig {
                         .accessDeniedHandler(
                                 (request, response, exception) -> response.setStatus(HttpServletResponse.SC_FORBIDDEN)))
                 .authorizeHttpRequests(configurer -> configurer
-                        .requestMatchers("/api/v1/login", "api/v1/register", "api/v1/preview").permitAll()
+                        .requestMatchers("/login", "/register", "/preview").permitAll()
                         .anyRequest().authenticated()
                 );
         return http;
