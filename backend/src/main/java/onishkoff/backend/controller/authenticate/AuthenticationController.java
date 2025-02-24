@@ -3,9 +3,11 @@ package onishkoff.backend.controller.authenticate;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import onishkoff.backend.dto.auth.RegistrationDto;
+import onishkoff.backend.dto.auth.TokenResponse;
 import onishkoff.backend.dto.auth.UserCredentialsDto;
 import onishkoff.backend.model.User;
 import onishkoff.backend.service.AuthenticationService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,13 +18,12 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public String authenticate(@RequestBody UserCredentialsDto user) {
-        return authenticationService.authenticate(user);
+    public ResponseEntity<TokenResponse> authenticate(@RequestBody UserCredentialsDto user) {
+        return ResponseEntity.ok(new TokenResponse(authenticationService.authenticate(user)));
     }
 
     @PostMapping("/reg")
-    public User register(@Valid @RequestBody RegistrationDto registration) {
-        return authenticationService.register(registration);
+    public ResponseEntity<User> register(@Valid @RequestBody RegistrationDto registration) {
+        return ResponseEntity.ok(authenticationService.register(registration));
     }
-
 }
