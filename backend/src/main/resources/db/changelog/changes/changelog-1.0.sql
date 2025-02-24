@@ -1,11 +1,10 @@
 CREATE TABLE users
 (
     user_id       SERIAL PRIMARY KEY,
-    first_name    VARCHAR(50)                                                 NOT NULL,
-    last_name     VARCHAR(50)                                                 NOT NULL,
-    email         VARCHAR(100) UNIQUE                                         NOT NULL,
-    password_hash TEXT                                                        NOT NULL,
-    role          VARCHAR(20) CHECK (role IN ('STUDENT', 'TEACHER', 'ADMIN')) NOT NULL,
+    first_name    VARCHAR(50)         NOT NULL,
+    last_name     VARCHAR(50)         NOT NULL,
+    email         VARCHAR(100) UNIQUE NOT NULL,
+    password_hash TEXT                NOT NULL,
     created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -22,6 +21,7 @@ CREATE TABLE organization_members
     member_id       SERIAL PRIMARY KEY,
     user_id         INT REFERENCES users (user_id) ON DELETE CASCADE,
     organization_id INT REFERENCES organizations (organization_id) ON DELETE CASCADE,
+    role_in_org     VARCHAR(20) CHECK (role_in_org IN ('STUDENT', 'TEACHER', 'ADMIN')) NOT NULL,
     joined_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

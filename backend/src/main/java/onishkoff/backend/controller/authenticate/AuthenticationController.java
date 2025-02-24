@@ -1,22 +1,28 @@
 package onishkoff.backend.controller.authenticate;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import onishkoff.backend.dto.auth.RegistrationDto;
+import onishkoff.backend.dto.auth.UserCredentialsDto;
+import onishkoff.backend.model.User;
+import onishkoff.backend.service.AuthenticationService;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthenticationController {
 
-    @PostMapping("/login")
-    public String authenticate(@RequestParam String username, @RequestParam String password) {
+    private final AuthenticationService authenticationService;
 
+    @PostMapping("/login")
+    public String authenticate(@RequestBody UserCredentialsDto user) {
+        return authenticationService.authenticate(user);
     }
 
     @PostMapping("/reg")
-    public String register(@RequestParam String username, @RequestParam String password) {
-
+    public User register(@Valid @RequestBody RegistrationDto registration) {
+        return authenticationService.register(registration);
     }
 
 }

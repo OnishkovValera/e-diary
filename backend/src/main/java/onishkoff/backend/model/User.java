@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-import onishkoff.backend.model.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +26,7 @@ public class User implements UserDetails {
 
     @Id
     @Column(name = "user_id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @NotNull
@@ -51,23 +50,18 @@ public class User implements UserDetails {
     @Column(name = "password_hash")
     String password;
 
-    @NotNull
-    @NotBlank
-    @Enumerated(EnumType.STRING)
-    Role role;
-
     @Column(name = "created_at")
     LocalDateTime created_at;
 
     @ManyToMany(mappedBy = "students")
     Set<Course> courses = new HashSet<>();
 
-    @ManyToMany(mappedBy = "members")
-    Set<Organization> organizations = new HashSet<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MembersInOrganization> organizations;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

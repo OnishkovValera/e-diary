@@ -30,7 +30,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChainForAuthentication(HttpSecurity http) throws Exception{
         return getHttpBasicConfiguration(http)
-                .securityMatcher("/login", "/register")
+                .securityMatcher("/auth/login", "/auth/reg")
                 .build();
     }
 
@@ -68,7 +68,7 @@ public class SecurityConfig {
                         .accessDeniedHandler(
                                 (request, response, exception) -> response.setStatus(HttpServletResponse.SC_FORBIDDEN)))
                 .authorizeHttpRequests(configurer -> configurer
-                        .requestMatchers("/login", "/register", "/preview").permitAll()
+                        .requestMatchers("/auth/login", "/auth/reg", "/preview").permitAll()
                         .anyRequest().authenticated()
                 );
         return http;

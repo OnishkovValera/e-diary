@@ -16,7 +16,7 @@ EXECUTE FUNCTION check_grade_value();
 CREATE OR REPLACE FUNCTION set_processed_at()
     RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.status IN ('approved', 'rejected') THEN
+    IF NEW.status IN ('APPROVED', 'REJECTED') THEN
         NEW.processed_at = CURRENT_TIMESTAMP;
     END IF;
     RETURN NEW;

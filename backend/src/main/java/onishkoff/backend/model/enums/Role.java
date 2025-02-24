@@ -1,7 +1,7 @@
 package onishkoff.backend.model.enums;
 
 public enum Role {
-    USER,
+    STUDENT,
     ADMIN,
     TEACHER
 }

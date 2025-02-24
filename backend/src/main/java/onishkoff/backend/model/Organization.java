@@ -8,8 +8,8 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+
 
 @Entity
 @Table(name = "organizations")
@@ -34,12 +34,7 @@ public class Organization {
     @Column(name = "created_at")
     LocalDateTime createdAt;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "organization_members",
-            joinColumns = @JoinColumn(name = "organization_id"),
-            inverseJoinColumns = @JoinColumn(name = "member_id")
-    )
-    Set<User> members = new HashSet<>();
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MembersInOrganization> memberOrganizations;
 
 }
