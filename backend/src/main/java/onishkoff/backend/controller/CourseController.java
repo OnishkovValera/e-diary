@@ -30,6 +30,12 @@ public class CourseController {
         return courseService.findById(courseId);
     }
 
+    @DeleteMapping("/{courseId}")
+    public ResponseEntity<Void> deleteCourse(@PathVariable(name = "courseId") Long courseId) {
+        courseService.deleteCourse(courseId);
+        return ResponseEntity.ok().build();
+    }
+
 
 
 }

@@ -39,8 +39,12 @@ public class CourseService {
     public CourseDto createCourse(Long organizationId, CourseDto course) {
         course.setTeacher(modelMapper.map(securityUtil.getUserFromContext(), UserDto.class));
         Course newCourse = modelMapper.map(course, Course.class);
-
         newCourse.setOrganization(organizationRepository.findById(organizationId).orElseThrow(NoSuchOrganization::new));
         return modelMapper.map(courseRepository.save(newCourse), CourseDto.class);
+    }
+
+    public void deleteCourse(Long courseId) {
+        courseRepository.findById(courseId).orElseThrow(NoSuchCourse::new);
+        courseRepository.deleteById(courseId);
     }
 }
