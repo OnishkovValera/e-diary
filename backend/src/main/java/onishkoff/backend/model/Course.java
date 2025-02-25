@@ -18,6 +18,7 @@ public class Course {
 
     @Id
     @Column(name = "course_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     @NotNull
@@ -33,9 +34,8 @@ public class Course {
     User teacher;
 
 
-    @NotNull
     @Column(name = "created_at")
-    LocalDateTime created_at;
+    LocalDateTime createdAt;
 
 
     @ManyToMany(fetch = FetchType.EAGER)

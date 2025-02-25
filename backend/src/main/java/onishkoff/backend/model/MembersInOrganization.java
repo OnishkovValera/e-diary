@@ -2,6 +2,8 @@ package onishkoff.backend.model;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import onishkoff.backend.model.enums.Role;
@@ -12,6 +14,8 @@ import java.time.LocalDateTime;
 @Table(name = "organization_members")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class MembersInOrganization {
 
     @Id

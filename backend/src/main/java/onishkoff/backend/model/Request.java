@@ -28,7 +28,7 @@ public class Request {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "organization_id")
-    Organization request;
+    Organization organization;
 
     @ManyToOne
     @JoinColumn(name = "course_id")

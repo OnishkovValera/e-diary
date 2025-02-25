@@ -18,6 +18,7 @@ public class Grade {
 
     @Id
     @Column(name = "grade_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @NotNull
