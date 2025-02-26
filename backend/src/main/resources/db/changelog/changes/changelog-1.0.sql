@@ -48,7 +48,7 @@ CREATE TABLE grades
     course_id  INT REFERENCES course (course_id) ON DELETE CASCADE,
     student_id INT REFERENCES users (user_id) ON DELETE CASCADE,
     teacher_id INT REFERENCES users (user_id),
-    grade      NUMERIC(3, 1) NOT NULL,
+    grade numeric(4,1) CHECK (grade >= 0 AND grade <= 100),
     grade_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     comment    TEXT
 );
