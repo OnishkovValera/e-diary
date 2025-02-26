@@ -22,11 +22,11 @@ public class OrganizationMemberService {
     public void addMemberToOrganization(Long organizationId, Long memberId, Role role) {
         User user = userRepository.findById(memberId).orElseThrow(() -> new RuntimeException("User not found"));
         Organization organization = organizationRepository.findById(organizationId).orElseThrow(() -> new RuntimeException("Organization not found"));
-        if (organization.getMemberOrganizations()
+        if (organization.getMembersOrganization()
                 .stream()
-                .noneMatch(member -> member
+                .noneMatch(member -> member.getMember()
                         .getId()
-                        .equals(memberId)) && !organization.getOwner().getId().equals(memberId)) {
+                        .equals(memberId))) {
             organizationMemberRepository.save(MembersInOrganization.builder()
                     .organization(organization)
                     .member(user)

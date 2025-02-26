@@ -20,7 +20,7 @@ public class CourseController {
         return ResponseEntity.ok(courseService.findAllByOrganization(organizationId));
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<CourseDto> createCourse(@RequestParam(name = "organization") Long id, @RequestBody CourseDto course) {
         return ResponseEntity.ok(courseService.createCourse(id, course));
     }
@@ -34,6 +34,24 @@ public class CourseController {
     public ResponseEntity<Void> deleteCourse(@PathVariable(name = "courseId") Long courseId) {
         courseService.deleteCourse(courseId);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}/setTeacher/{TeacherId}")
+    public ResponseEntity<Void> setTeacherToCourse(@PathVariable(name = "id") Long courseId, @PathVariable(name = "TeacherId") Long teacherId) {
+        courseService.setTeacherToCourse(courseId, teacherId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}/deleteTeacher")
+    public ResponseEntity<Void> deleteTeacherFromCourse(@PathVariable(name = "id") Long courseId) {
+        courseService.deleteTeacherFromCourse(courseId);
+        return ResponseEntity.ok().build();
+    }
+
+
+    @GetMapping("/getAllByUser/{userId}")
+    public ResponseEntity<List<CourseDto>> getAllByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(courseService.getAllCoursesByUserId(userId));
     }
 
 

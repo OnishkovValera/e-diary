@@ -22,19 +22,16 @@ public class Grade {
     Long id;
 
     @NotNull
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "course_id")
     Course course;
 
     @NotNull
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "student_id")
     User student;
 
     @NotNull
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     User teacher;

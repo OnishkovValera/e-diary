@@ -40,6 +40,6 @@ public class Organization {
     LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<MembersInOrganization> memberOrganizations = new ArrayList<>();
+    List<MembersInOrganization> membersOrganization = new ArrayList<>();
 
 }

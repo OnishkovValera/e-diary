@@ -1,5 +1,7 @@
 package onishkoff.backend.dto.model.organization;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import onishkoff.backend.dto.model.UserDto;
@@ -14,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 public class OrganizationDto {
     Long id;
+    @NotNull
+    @NotBlank
     String name;
     UserDto owner;
     LocalDateTime createdAt;
