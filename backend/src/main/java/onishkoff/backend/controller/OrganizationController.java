@@ -32,12 +32,12 @@ public class OrganizationController {
     @PostMapping("/{id}/addMember/{memberId}")
     public ResponseEntity<Void> addMemberToOrganization(@PathVariable(name = "id") Long organizationId,
                                                         @PathVariable(name = "memberId") Long memberId,
-                                                        @RequestParam(name = "status") Role role) {
+                                                        @RequestParam(name = "role") Role role) {
         return ResponseEntity.ok(organizationService.addMemberToOrganization(organizationId, memberId, role));
     }
 
     @DeleteMapping("/deleteMember/{memberInOrganizationId}")
-    public ResponseEntity<Void> deleteMemberToOrganization(@PathVariable(name = "memberInOrganizationId") Long memberInOrganizationId) {
+    public ResponseEntity<Void> deleteMemberFromOrganization(@PathVariable(name = "memberInOrganizationId") Long memberInOrganizationId) {
         return ResponseEntity.ok(organizationService.deleteMemberToOrganization(memberInOrganizationId));
     }
 
@@ -45,6 +45,13 @@ public class OrganizationController {
     public ResponseEntity<Void> deleteOrganization(@PathVariable(name = "id") Long organizationId) {
         return ResponseEntity.ok(organizationService.deleteOrganization(organizationId));
     }
+
+    @DeleteMapping("/{id}/deleteMember/{memberId}")
+    public ResponseEntity<Void> deleteMemberToOrganization(@PathVariable(name = "id") Long organizationId,
+                                                        @PathVariable(name = "memberId") Long memberId) {
+        return ResponseEntity.ok(organizationService.deleteMemberFromOrganization(organizationId, memberId));
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<OrganizationDto> updateOrganization(@PathVariable(name = "id") Long organizationId, @RequestParam(name = "name") String name){

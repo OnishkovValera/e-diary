@@ -7,6 +7,7 @@ import onishkoff.backend.dto.model.course.CourseDto;
 import onishkoff.backend.exception.NoSuchCourse;
 import onishkoff.backend.exception.NoSuchOrganization;
 import onishkoff.backend.model.Course;
+import onishkoff.backend.model.Organization;
 import onishkoff.backend.repository.CourseRepository;
 import onishkoff.backend.repository.OrganizationRepository;
 import onishkoff.backend.utils.SecurityUtil;
@@ -26,7 +27,9 @@ public class CourseService {
 
 
     public List<CourseDto> findAllByOrganization(Long organizationId) {
-        return courseRepository.findByOrganization_Id(organizationId).stream()
+        organizationRepository.findById(organizationId).orElseThrow(NoSuchOrganization::new);
+        List<Course> courses = courseRepository.findByOrganization_Id(organizationId).orElseThrow(NoSuchCourse::new);
+        return courses.stream()
                 .map(element -> modelMapper
                         .map(element, CourseDto.class))
                 .toList();

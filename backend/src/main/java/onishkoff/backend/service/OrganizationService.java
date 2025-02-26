@@ -9,7 +9,12 @@ import onishkoff.backend.model.enums.Role;
 import onishkoff.backend.repository.OrganizationRepository;
 import onishkoff.backend.utils.SecurityUtil;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.CannotAcquireLockException;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,9 +28,14 @@ public class OrganizationService {
     private final OrganizationMemberService organizationMemberService;
     private final SecurityUtil securityUtil;
 
+    @Retryable(value = { Exception.class },
+            backoff = @Backoff(delay = 1000))
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.SERIALIZABLE)
     public OrganizationDto createOrganization(OrganizationDto organization) {
         organization.setOwner(modelMapper.map(securityUtil.getUserFromContext(), UserDto.class));
-        return modelMapper.map(organizationRepository.save(modelMapper.map(organization, Organization.class)), OrganizationDto.class);
+        OrganizationDto newOrganization = modelMapper.map(organizationRepository.save(modelMapper.map(organization, Organization.class)), OrganizationDto.class);
+        organizationMemberService.addMemberToOrganization(newOrganization.getId(), securityUtil.getUserFromContext().getId(),Role.ADMIN);
+        return modelMapper.map(organizationRepository.findById(newOrganization.getId()), OrganizationDto.class);
     }
 
     public List<OrganizationDto> getOrganizations() {
@@ -51,6 +61,11 @@ public class OrganizationService {
 
     public Void deleteMemberToOrganization(Long memberInOrganizationId) {
         organizationMemberService.deleteById(memberInOrganizationId);
+        return null;
+    }
+
+    public Void deleteMemberFromOrganization(Long organizationId, Long memberId) {
+        organizationMemberService.deleteByMeberIdAndOrganizationId(memberId, organizationId);
         return null;
     }
 }

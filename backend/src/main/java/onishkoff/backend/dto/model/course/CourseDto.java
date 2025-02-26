@@ -14,7 +14,7 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 public class CourseDto {
-    Integer id;
+    Long id;
     String name;
     UserDto teacher;
     LocalDateTime createdAt;

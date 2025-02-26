@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import onishkoff.backend.model.enums.Role;
 import onishkoff.backend.model.enums.Status;
 
 import java.time.LocalDateTime;
@@ -33,6 +34,11 @@ public class Request {
     @ManyToOne
     @JoinColumn(name = "course_id")
     Course course;
+
+    @NotNull
+    @Column(name = "role_in_org")
+    @Enumerated(EnumType.STRING)
+    Role role;
 
     @NotNull
     @Enumerated(EnumType.STRING)

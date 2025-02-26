@@ -19,7 +19,7 @@ public class Course {
     @Id
     @Column(name = "course_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    Long id;
 
     @NotNull
     @ManyToOne

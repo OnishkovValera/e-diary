@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,6 +40,6 @@ public class Organization {
     LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<MembersInOrganization> memberOrganizations;
+    List<MembersInOrganization> memberOrganizations = new ArrayList<>();
 
 }

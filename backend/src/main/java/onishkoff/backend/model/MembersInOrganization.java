@@ -2,17 +2,15 @@ package onishkoff.backend.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import onishkoff.backend.model.enums.Role;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "organization_members")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

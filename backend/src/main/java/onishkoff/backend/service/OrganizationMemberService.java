@@ -41,4 +41,10 @@ public class OrganizationMemberService {
         organizationMemberRepository.findById(organizationId).orElseThrow(() -> new RuntimeException("Такого человека нет в этом курсе"));
         organizationRepository.deleteById(organizationId);
     }
+
+    public void deleteByMeberIdAndOrganizationId(Long memberId, Long organizationId) {
+        organizationMemberRepository.deleteByMember_IdAndOrganization_Id(memberId, organizationId);
+
+    }
+
 }
