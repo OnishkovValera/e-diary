@@ -17,22 +17,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class GradeDto {
-
     Long id;
-
     @NotNull
     CourseDto course;
-
     @NotNull
     UserDto student;
-
     UserDto teacher;
-
     @Max(100)
     @Min(0)
     Long grade;
-
     LocalDateTime gradeDateTime;
-
     String comment;
 }

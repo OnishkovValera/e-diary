@@ -25,6 +25,4 @@ public class RegistrationDto {
     @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+", message = "Пароль должен содержать хотя бы одну заглавную букву, одну строчную и цифру")
     String password;
 
-
-
 }
