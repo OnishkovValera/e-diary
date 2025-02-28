@@ -20,6 +20,8 @@ public class CourseController {
         return ResponseEntity.ok(courseService.findAllByOrganization(organizationId));
     }
 
+
+
     @PostMapping
     public ResponseEntity<CourseDto> createCourse(@RequestParam(name = "organization") Long id, @RequestBody CourseDto course) {
         return ResponseEntity.ok(courseService.createCourse(id, course));
@@ -36,13 +38,14 @@ public class CourseController {
         return ResponseEntity.ok().build();
     }
 
+
     @PutMapping("/{id}/setTeacher/{TeacherId}")
     public ResponseEntity<Void> setTeacherToCourse(@PathVariable(name = "id") Long courseId, @PathVariable(name = "TeacherId") Long teacherId) {
         courseService.setTeacherToCourse(courseId, teacherId);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{id}/deleteTeacher")
+    @PutMapping("/{id}/deleteTeacher")
     public ResponseEntity<Void> deleteTeacherFromCourse(@PathVariable(name = "id") Long courseId) {
         courseService.deleteTeacherFromCourse(courseId);
         return ResponseEntity.ok().build();
@@ -53,6 +56,19 @@ public class CourseController {
     public ResponseEntity<List<CourseDto>> getAllByUser(@PathVariable Long userId) {
         return ResponseEntity.ok(courseService.getAllCoursesByUserId(userId));
     }
+
+
+    @DeleteMapping("/deleteMember/{id}")
+    public ResponseEntity<Void> deleteMember(@PathVariable(name = "id") Long courseId) {
+        return ResponseEntity.ok(courseService.deleteMemberFromCourse(courseId));
+    }
+
+    @DeleteMapping("{courseId}/deleteMember/{id}")
+    public ResponseEntity<Void> deleteMember(@PathVariable(name = "courseId") Long courseId,
+                                             @PathVariable(name = "id") Long studentId) {
+        return ResponseEntity.ok(courseService.deleteMemberFromCourseById(courseId, studentId));
+    }
+
 
 
 

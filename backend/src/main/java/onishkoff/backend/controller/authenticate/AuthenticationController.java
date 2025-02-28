@@ -27,4 +27,9 @@ public class AuthenticationController {
     public ResponseEntity<UserDto> register(@Valid @RequestBody RegistrationDto registration) {
         return ResponseEntity.ok(authenticationService.register(registration));
     }
+
+    @GetMapping("/check")
+    public ResponseEntity<Void> check() {
+        return ResponseEntity.ok().build();
+    }
 }

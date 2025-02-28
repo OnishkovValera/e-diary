@@ -17,6 +17,7 @@ public class GradeController {
 
     @PostMapping
     public ResponseEntity<Void> addGrade(@RequestBody GradeDto grade) {
+        System.out.println(grade);
         gradeService.addGrade(grade);
         return ResponseEntity.ok().build();
     }
@@ -27,9 +28,14 @@ public class GradeController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
+    @GetMapping("/byStudent")
     public ResponseEntity<List<GradeDto>> getAllGrades(@RequestParam(name = "course") Long courseId, @RequestParam(name = "student") Long studentId) {
         return ResponseEntity.ok(gradeService.getAllGrades(courseId, studentId));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<GradeDto>> getAllGrades(@RequestParam(name = "course") Long courseId) {
+        return ResponseEntity.ok(gradeService.getAllGrades(courseId));
     }
 
 

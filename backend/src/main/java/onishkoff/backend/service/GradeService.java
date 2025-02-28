@@ -30,6 +30,7 @@ public class GradeService {
     private final SecurityUtil securityUtil;
 
     public void addGrade(GradeDto grade) {
+        grade.setId(null);
         Grade newGrade = modelMapper.map(grade, Grade.class);
         User teacher = securityUtil.getUserFromContext();
         User student = userRepository.findById(grade.getStudent().getId()).orElseThrow(UserNotFoundException::new);
@@ -42,12 +43,14 @@ public class GradeService {
 
     public void updateGrade(GradeDto grade) {
         Grade newGrade = gradeRepository.findById(grade.getId()).orElseThrow(NoSuchGrade::new);
-        User teacher = userRepository.findById(grade.getTeacher().getId()).orElseThrow(UserNotFoundException::new);
-        User student = userRepository.findById(grade.getStudent().getId()).orElseThrow(UserNotFoundException::new);
-        Course course = courseRepository.findById(grade.getCourse().getId()).orElseThrow(NoSuchCourse::new);
+        User teacher = userRepository.findById(newGrade.getTeacher().getId()).orElseThrow(UserNotFoundException::new);
+        User student = userRepository.findById(newGrade.getStudent().getId()).orElseThrow(UserNotFoundException::new);
+        Course course = courseRepository.findById(newGrade.getCourse().getId()).orElseThrow(NoSuchCourse::new);
         newGrade.setStudent(student);
         newGrade.setTeacher(teacher);
         newGrade.setCourse(course);
+        newGrade.setGrade(grade.getGrade());
+        newGrade.setComment(grade.getComment());
         gradeRepository.save(newGrade);
 
     }
@@ -66,4 +69,13 @@ public class GradeService {
         }
 
     }
+
+    public List<GradeDto> getAllGrades(Long courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow(NoSuchCourse::new);
+        return gradeRepository.findAllByCourse_Id(course.getId()).orElse(new ArrayList<>())
+                .stream()
+                .map(grade -> modelMapper.map(grade, GradeDto.class))
+                .toList();
+    }
+
 }

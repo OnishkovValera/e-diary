@@ -70,4 +70,12 @@ public class UserService {
         return courseRepository.findAllByTeacher(user).orElse(Collections.emptyList()).stream().map(course -> modelMapper.map(course, CourseDto.class)).toList();
 
     }
+
+    public UserDto updateUser(UserDto userDto) {
+        User user = securityUtil.getUserFromContext();
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        userRepository.save(user);
+        return modelMapper.map(user, UserDto.class);
+    }
 }

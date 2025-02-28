@@ -51,4 +51,10 @@ public class Request {
     @Column(name = "processed_at")
     LocalDateTime processedAt;
 
+    @PrePersist
+    private void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
 }

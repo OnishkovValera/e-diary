@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface GradeRepository extends JpaRepository<Grade, Long> {
     Optional<List<Grade>> findGradesByStudentId(Long studentId);
+    Optional<List<Grade>> findAllByCourse_Id(Long courseId);
+
 }

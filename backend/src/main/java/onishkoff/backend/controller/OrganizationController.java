@@ -12,21 +12,26 @@ import java.util.List;
 @RestController
 @RequestMapping("/organization")
 @RequiredArgsConstructor
-//TODO: Add ability to crud organization, approve teacher requests, add teacher to classes, create classes
 public class OrganizationController {
 
     private final OrganizationService organizationService;
 
 
+    @GetMapping("/{id}")
+    public ResponseEntity<OrganizationDto> getOrganization(@PathVariable Long id) {
+        OrganizationDto dto = organizationService.findById(id);
+        return ResponseEntity.ok(dto);
+    }
+
     @GetMapping
-    public ResponseEntity<List<OrganizationDto>> getAllOrganizations() {
-        return ResponseEntity.ok(organizationService.getOrganizations());
+    public ResponseEntity<List<OrganizationDto>> getAllOrganizations(@RequestParam(defaultValue = "", name = "query") String filter) {
+        return ResponseEntity.ok(organizationService.getOrganizations(filter));
     }
 
     @PostMapping
     public ResponseEntity<OrganizationDto> createOrganization(@RequestBody OrganizationDto organizationDto) {
-        System.out.println(organizationDto);
-        return ResponseEntity.ok(organizationService.createOrganization(organizationDto));
+        OrganizationDto dto = organizationService.createOrganization(organizationDto);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping("/{id}/addMember/{memberId}")

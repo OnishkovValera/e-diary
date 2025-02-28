@@ -59,7 +59,6 @@ public class CourseService {
 
     public void setTeacherToCourse(Long courseId, Long teacherId) {
         Course course = courseRepository.findById(courseId).orElseThrow(NoSuchCourse::new);
-        System.out.println(teacherId + " " + course.getOrganization().getId());
         MembersInOrganization membersInOrganization = organizationMemberRepository.findByMember_IdAndOrganization_Id(teacherId, course.getOrganization().getId()).orElseThrow(NoSuchMemberInOrganization::new);
         if (!membersInOrganization.getRoleInOrganization().equals(Role.STUDENT)) {
             course.setTeacher(membersInOrganization.getMember());
@@ -90,4 +89,22 @@ public class CourseService {
 
 
     }
+
+    public Void deleteMemberFromCourse(Long courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow(NoSuchCourse::new);
+        User user = securityUtil.getUserFromContext();
+        course.getStudents().remove(user);
+        courseRepository.save(course);
+        return null;
+    }
+
+    public Void deleteMemberFromCourseById(Long courseId, Long studentId) {
+        Course course = courseRepository.findById(courseId).orElseThrow(NoSuchCourse::new);
+        User user = userRepository.findById(studentId).orElseThrow(UserNotFoundException::new);
+        course.getStudents().remove(user);
+        courseRepository.save(course);
+        return null;
+    }
+
+
 }

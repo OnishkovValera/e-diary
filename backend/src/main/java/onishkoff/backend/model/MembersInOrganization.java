@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = "organization")
 public class MembersInOrganization {
 
     @Id
@@ -36,4 +37,12 @@ public class MembersInOrganization {
 
     @Column(name = "joined_at")
     LocalDateTime joinedAt;
+
+
+    @PrePersist
+    private void onCreate() {
+        if (joinedAt == null) {
+            joinedAt = LocalDateTime.now();
+        }
+    }
 }

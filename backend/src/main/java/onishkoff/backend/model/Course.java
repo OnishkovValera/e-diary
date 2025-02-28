@@ -46,4 +46,11 @@ public class Course {
     )
     Set<User> students = new HashSet<>();
 
+    @PrePersist
+    private void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
+
 }
