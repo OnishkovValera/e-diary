@@ -15,5 +15,8 @@ public interface OrganizationMemberRepository extends JpaRepository<MembersInOrg
     void deleteByMember_IdAndOrganization_Id(Long memberId, Long organizationId);
     Optional<MembersInOrganization> findByMember_IdAndOrganization_Id(Long memberId, Long organizationId);
 
+    List<MembersInOrganization> findAllByOrganization_Id(Long organizationId);
+
     List<MembersInOrganization> findAllByMember_IdAndRoleInOrganization(Long memberId, Role roleInOrganization);
+
 }

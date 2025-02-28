@@ -16,11 +16,10 @@ import onishkoff.backend.model.enums.Role;
 public class RequestDto {
     Long id;
 
-    @NotNull
     UserDto user;
 
-    @NotNull
     OrganizationDto organization;
+
     CourseDto course;
 
     @NotNull

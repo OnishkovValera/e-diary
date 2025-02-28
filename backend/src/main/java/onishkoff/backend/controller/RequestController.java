@@ -37,6 +37,16 @@ public class RequestController {
         return ResponseEntity.ok(requestService.getAllAdminRequests(organizationId));
     }
 
+    @GetMapping("/forAdmin")
+    public ResponseEntity<List<RequestDto>> getAllForAdmin(@RequestParam(name = "organization") Long organizationId){
+        return ResponseEntity.ok(requestService.requestsForAdmins(organizationId));
+    }
+
+    @GetMapping("/studentOnCourse")
+    public ResponseEntity<List<RequestDto>> getAllStudentRequestOnCourse(@RequestParam(name = "course") Long courseId){
+        return ResponseEntity.ok(requestService.getAllStudentsRequestByCourse(courseId));
+    }
+
     @PutMapping("/handleRequest/{id}")
     public ResponseEntity<Void> handleRequest(@PathVariable Long id, @RequestParam(name = "status") Status status){
         requestService.handleRequest(id, status);

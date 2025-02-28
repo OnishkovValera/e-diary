@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = "organization")
 public class MembersInOrganization {
 
     @Id
@@ -22,11 +23,11 @@ public class MembersInOrganization {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User member;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "organization_id", nullable = false)
+    @JoinColumn(name = "organization_id")
     private Organization organization;
 
     @Column(name = "role_in_org")
@@ -36,4 +37,12 @@ public class MembersInOrganization {
 
     @Column(name = "joined_at")
     LocalDateTime joinedAt;
+
+
+    @PrePersist
+    private void onCreate() {
+        if (joinedAt == null) {
+            joinedAt = LocalDateTime.now();
+        }
+    }
 }

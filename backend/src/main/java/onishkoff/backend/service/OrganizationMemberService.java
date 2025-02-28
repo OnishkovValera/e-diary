@@ -11,6 +11,8 @@ import onishkoff.backend.repository.OrganizationRepository;
 import onishkoff.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class OrganizationMemberService {
@@ -46,5 +48,10 @@ public class OrganizationMemberService {
         organizationMemberRepository.deleteByMember_IdAndOrganization_Id(memberId, organizationId);
 
     }
+
+    public List<MembersInOrganization> getMembersInOrganization(Long organizationId) {
+        return organizationMemberRepository.findAllByOrganization_Id(organizationId);
+    }
+
 
 }

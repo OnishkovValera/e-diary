@@ -5,6 +5,7 @@ import onishkoff.backend.exception.auth.UserAlreadyExists;
 import onishkoff.backend.exception.auth.WrongPasswordException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -19,4 +20,15 @@ public class GlobalExceptionController {
     public ProblemDetail handleWrongPasswordException(WrongPasswordException exception){
         return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, "Неправильный пароль");
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ProblemDetail handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
+        return ProblemDetail.forStatusAndDetail(exception.getStatusCode(), exception.getBindingResult().getFieldError().getDefaultMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail handleException(Exception exception){
+        return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+    }
+
 }

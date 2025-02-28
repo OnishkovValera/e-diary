@@ -42,4 +42,10 @@ public class Organization {
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
     List<MembersInOrganization> membersOrganization = new ArrayList<>();
 
+    @PrePersist
+    private void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
 }

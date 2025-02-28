@@ -16,6 +16,7 @@ import onishkoff.backend.repository.UserRepository;
 import onishkoff.backend.utils.SecurityUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -70,4 +71,13 @@ public class UserService {
         return courseRepository.findAllByTeacher(user).orElse(Collections.emptyList()).stream().map(course -> modelMapper.map(course, CourseDto.class)).toList();
 
     }
+
+    public UserDto updateUser(UserDto userDto) {
+        User user = securityUtil.getUserFromContext();
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        userRepository.save(user);
+        return modelMapper.map(user, UserDto.class);
+    }
+
 }

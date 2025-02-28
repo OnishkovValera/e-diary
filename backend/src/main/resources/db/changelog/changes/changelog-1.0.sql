@@ -57,8 +57,8 @@ CREATE TABLE requests
 (
     request_id      SERIAL PRIMARY KEY,
     user_id         INT REFERENCES users (user_id) ON DELETE CASCADE,
-    organization_id INT REFERENCES organizations (organization_id),
-    course_id       INT REFERENCES course (course_id),
+    organization_id INT REFERENCES organizations (organization_id) ON DELETE CASCADE ,
+    course_id       INT REFERENCES course (course_id) ON DELETE CASCADE ,
     role_in_org     VARCHAR(20) CHECK (role_in_org IN ('STUDENT', 'TEACHER', 'ADMIN')) NOT NULL,
     status          VARCHAR(20) NOT NULL,
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

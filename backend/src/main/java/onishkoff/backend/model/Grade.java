@@ -2,7 +2,6 @@ package onishkoff.backend.model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -47,4 +46,11 @@ public class Grade {
     @Column(name = "comment")
     String comment;
 
+
+    @PrePersist
+    private void onCreate() {
+        if (gradeDateTime == null) {
+            gradeDateTime = LocalDateTime.now();
+        }
+    }
 }

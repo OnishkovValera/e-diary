@@ -1,0 +1,247 @@
+.container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+}
+
+.memberList {
+    list-style: none;
+    padding: 0;
+}
+
+.memberList li {
+    background: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.requestSection {
+    margin-top: 20px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.requestSection h3 {
+    margin-top: 0;
+}
+
+.requestSection button {
+    margin-right: 10px;
+    padding: 6px 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.requestSection button:hover {
+    background: #0056b3;
+}
+
+.membershipActions {
+    margin-top: 20px;
+}
+
+.membershipActions button {
+    margin-right: 10px;
+    padding: 6px 12px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.membershipActions button:hover {
+    background: #c82333;
+}
+
+/* Секция создания курса */
+.createCourseSection {
+    margin-top: 30px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.createCourseSection h3 {
+    margin-top: 0;
+}
+
+.createCourseSection button {
+    padding: 6px 12px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.createCourseSection button:hover {
+    background: #218838;
+}
+
+.createCourseForm {
+    margin-top: 15px;
+}
+
+.createCourseForm .inputGroup {
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.createCourseForm .inputGroup label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.createCourseForm .inputGroup input,
+.createCourseForm .inputGroup select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.createCourseForm button {
+    padding: 6px 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.createCourseForm button:hover {
+    background: #0056b3;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
+.manageRequests {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.manageRequests button {
+    padding: 8px 16px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.manageRequests button:hover {
+    background-color: #5a6268;
+}
+
+/* Дополнительные стили для секции управления курсами */
+.manageCoursesSection {
+    margin-top: 30px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.manageCoursesSection h3 {
+    margin: 0 0 15px;
+    font-size: 1.2rem;
+}
+
+/* Стили для списка курсов */
+.courseList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.courseItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.courseName {
+    cursor: pointer;
+    font-weight: bold;
+    flex-grow: 1;
+}
+
+/* Кнопки внутри списка курсов */
+.courseItem button {
+    padding: 6px 12px;
+    background: #6c757d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.courseItem button:hover {
+    background: #5a6268;
+}
+
+/* Форма для управления учителем курса */
+.manageTeacherForm {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.manageTeacherForm select {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.manageTeacherForm button {
+    padding: 6px 12px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.manageTeacherForm button:hover {
+    background: #0056b3;
+}
+
+/* Кнопка для просмотра всех курсов */
+.viewCoursesButton {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.viewCoursesButton:hover {
+    background-color: #0056b3;
+}

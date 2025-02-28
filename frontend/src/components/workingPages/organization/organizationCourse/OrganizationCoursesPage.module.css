@@ -1,0 +1,31 @@
+.container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+}
+.courseList {
+    list-style: none;
+    padding: 0;
+}
+.courseItem {
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.courseItem button {
+    padding: 6px 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.courseItem button:hover {
+    background: #0056b3;
+}
+
