@@ -1,0 +1,37 @@
+.container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+    text-align: center;
+}
+.searchForm {
+    margin-bottom: 20px;
+}
+.searchForm input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+    margin-right: 10px;
+}
+.searchForm button {
+    padding: 8px 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.list {
+    list-style: none;
+    padding: 0;
+}
+.list li {
+    background: #fff;
+    padding: 10px;
+    margin: 5px auto;
+    width: 300px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}

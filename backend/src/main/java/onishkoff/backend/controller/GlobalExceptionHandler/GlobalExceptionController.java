@@ -26,5 +26,9 @@ public class GlobalExceptionController {
         return ProblemDetail.forStatusAndDetail(exception.getStatusCode(), exception.getBindingResult().getFieldError().getDefaultMessage());
     }
 
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail handleException(Exception exception){
+        return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+    }
 
 }

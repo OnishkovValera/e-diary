@@ -35,7 +35,6 @@ axiosInstance.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-// Перехватываем ответ
 axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {

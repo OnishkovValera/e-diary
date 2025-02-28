@@ -82,7 +82,9 @@ public class RequestService {
 
     public List<RequestDto> requestsForAdmins(Long organizationId) {
         return requestRepository.findAllByOrganization_Id(organizationId)
-                .stream().filter(request -> request.getRole().equals(Role.ADMIN) || request.getRole().equals(Role.TEACHER))
+                .stream().filter(request -> (request.getRole().equals(Role.ADMIN) ||
+                        request.getRole().equals(Role.TEACHER)) &
+                        request.getStatus().equals(Status.PENDING))
                 .map(request -> modelMapper
                         .map(request, RequestDto.class))
                 .collect(Collectors.toList());
@@ -91,14 +93,11 @@ public class RequestService {
 
     public List<RequestDto> getAllStudentsRequestByCourse(Long courseId) {
         return requestRepository.findAllByCourse_Id(courseId)
-                .stream().filter(request -> request.getRole().equals(Role.STUDENT))
+                .stream().filter(request -> request.getRole().equals(Role.STUDENT) & request.getStatus().equals(Status.PENDING))
                 .map(request -> modelMapper
                         .map(request, RequestDto.class))
                 .collect(Collectors.toList());
     }
-
-
-
 
 
     @Retryable(value = {CannotAcquireLockException.class},
@@ -110,7 +109,7 @@ public class RequestService {
         req.setStatus(status);
         requestRepository.save(req);
         if (status.equals(Status.APPROVED)) {
-            if (organizationMemberRepository.findByMember_IdAndOrganization_Id(req.getUser().getId(), req.getOrganization().getId()).isEmpty()){
+            if (organizationMemberRepository.findByMember_IdAndOrganization_Id(req.getUser().getId(), req.getOrganization().getId()).isEmpty()) {
                 organizationMemberService.addMemberToOrganization(req.getOrganization().getId(), req.getUser().getId(), req.getRole());
             }
             if (req.getRole().equals(Role.STUDENT)) {

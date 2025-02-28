@@ -8,6 +8,7 @@ import onishkoff.backend.dto.model.UserDto;
 import onishkoff.backend.exception.auth.WrongPasswordException;
 import onishkoff.backend.model.User;
 import onishkoff.backend.utils.JwtUtil;
+import onishkoff.backend.utils.SecurityUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,6 +23,7 @@ public class AuthenticationService {
     private final UserService userService;
     private final JwtUtil jwtTokenUtils;
     private final ModelMapper modelMapper;
+    private final SecurityUtil securityUtil;
 
 
     public TokenResponse authenticate(UserCredentialsDto credentials) {
@@ -40,4 +42,7 @@ public class AuthenticationService {
         return modelMapper.map(userService.registerUser(registerDto), UserDto.class);
     }
 
+    public UserDto check() {
+        return modelMapper.map(securityUtil.getUserFromContext(), UserDto.class);
+    }
 }

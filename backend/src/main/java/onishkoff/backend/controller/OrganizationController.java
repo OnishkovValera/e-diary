@@ -54,6 +54,7 @@ public class OrganizationController {
     @DeleteMapping("/{id}/deleteMember/{memberId}")
     public ResponseEntity<Void> deleteMemberToOrganization(@PathVariable(name = "id") Long organizationId,
                                                         @PathVariable(name = "memberId") Long memberId) {
+        System.out.println("deleteMemberToOrganization");
         return ResponseEntity.ok(organizationService.deleteMemberFromOrganization(organizationId, memberId));
     }
 

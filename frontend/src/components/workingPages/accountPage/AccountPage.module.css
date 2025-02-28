@@ -1,0 +1,112 @@
+.container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+}
+.header {
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.userInfo h2 {
+    margin: 0;
+}
+.userInfo button {
+    padding: 5px 10px;
+    background: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.userInfo button:hover {
+    background: #0056b3;
+}
+.main {
+    display: flex;
+    gap: 20px;
+}
+.navBlock {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    flex: 1;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.navBlock h3 {
+    margin-top: 0;
+}
+.navBlock ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+.searchOrg {
+    margin-top: 20px;
+    text-align: center;
+}
+.searchOrg button {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.searchOrg button:hover {
+    background-color: #218838;
+}
+
+.header {
+    background: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userInfo h2 {
+    margin: 0;
+}
+
+.profileActions {
+    display: flex;
+    gap: 10px;
+}
+
+.editButton {
+    padding: 5px 10px;
+    background: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.editButton:hover {
+    background: #0056b3;
+}
+
+.logoutButton {
+    padding: 5px 10px;
+    background: #ffc107;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.logoutButton:hover {
+    background: #e0a800;
+}
+
+

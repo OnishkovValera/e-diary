@@ -6,7 +6,6 @@ import onishkoff.backend.dto.auth.RegistrationDto;
 import onishkoff.backend.dto.auth.TokenResponse;
 import onishkoff.backend.dto.auth.UserCredentialsDto;
 import onishkoff.backend.dto.model.UserDto;
-import onishkoff.backend.model.User;
 import onishkoff.backend.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +28,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/check")
-    public ResponseEntity<Void> check() {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<UserDto> check() {
+        return ResponseEntity.ok(authenticationService.check());
     }
 }

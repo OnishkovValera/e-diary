@@ -16,6 +16,7 @@ import onishkoff.backend.repository.UserRepository;
 import onishkoff.backend.utils.SecurityUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -78,4 +79,5 @@ public class UserService {
         userRepository.save(user);
         return modelMapper.map(user, UserDto.class);
     }
+
 }

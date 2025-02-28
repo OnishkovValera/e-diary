@@ -1,45 +1,43 @@
-import { User } from "../types/User.ts";
-import { create } from "zustand/react";
-import axios from "axios";
+import { create } from 'zustand';
+import { UserDto } from '../types';
+import axiosInstance from "../configure/APIConfigure.ts";
 
 interface UserStore {
     authorized: boolean;
-    user: User | null;
-    isLoading: boolean;
-    setAuthorized: (authorized: boolean) => void;
-    setUser: (user: User | null) => void;
+    user: UserDto | null;
+    loading: boolean;
+    setAuthorized: (value: boolean) => void;
+    setUser: (user: UserDto | null) => void;
+    setLoading: (value: boolean) => void;
+    // Функция для проверки токена на сервере
     checkAuth: () => Promise<void>;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
     authorized: false,
     user: null,
-    isLoading: true, // Начинаем с загрузки
-
-    setAuthorized: (authorized: boolean) => set({ authorized }),
-    setUser: (user: User | null) => set({ user }),
-
+    loading: true,
+    setAuthorized: (value: boolean) => set({ authorized: value }),
+    setUser: (user: UserDto | null) => set({ user }),
+    setLoading: (value: boolean) => set({ loading: value }),
     checkAuth: async () => {
-        const token = localStorage.getItem("token");
-
+        const token = localStorage.getItem('token');
         if (!token) {
-            set({ authorized: false, user: null, isLoading: false });
+            set({ authorized: false, user: null, loading: false });
             return;
         }
-
         try {
-            const response = await axios.get<User>("http://localhost:8080/api/v1/auth/", {
+            // Отправляем запрос для проверки токена на эндпоинте /auth/check
+            const response = await axiosInstance.get('/auth/check', {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            set({ authorized: true, user: response.data, isLoading: false });
+            const data = response.data;
+            set({ authorized: true, user: data, loading: false });
         } catch (error) {
-            console.error("Auth check failed:", error);
-            localStorage.removeItem("token");
-            set({ authorized: false, user: null, isLoading: false });
+            console.log(error);
+            localStorage.removeItem('token');
+            set({ authorized: false, user: null, loading: false });
         }
     },
 }));
-
-// Вызываем проверку при загрузке
-useUserStore.getState().checkAuth();

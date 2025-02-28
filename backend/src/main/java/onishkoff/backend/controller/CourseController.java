@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import onishkoff.backend.dto.model.course.CourseDto;
 import onishkoff.backend.service.CourseService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class CourseController {
 
 
 
+    @PreAuthorize("@rightsChecker.getCheckAdminRightsOnOrganization(#id)")
     @PostMapping
     public ResponseEntity<CourseDto> createCourse(@RequestParam(name = "organization") Long id, @RequestBody CourseDto course) {
         return ResponseEntity.ok(courseService.createCourse(id, course));
@@ -32,6 +34,7 @@ public class CourseController {
         return courseService.findById(courseId);
     }
 
+    @PreAuthorize("@rightsChecker.getCheckAdminRightsOnOrganization(#id)")
     @DeleteMapping("/{courseId}")
     public ResponseEntity<Void> deleteCourse(@PathVariable(name = "courseId") Long courseId) {
         courseService.deleteCourse(courseId);
@@ -57,12 +60,13 @@ public class CourseController {
         return ResponseEntity.ok(courseService.getAllCoursesByUserId(userId));
     }
 
-
+    @PreAuthorize("@rightsChecker.getCheckRightsonAdminAndTeacher(#courseId)")
     @DeleteMapping("/deleteMember/{id}")
     public ResponseEntity<Void> deleteMember(@PathVariable(name = "id") Long courseId) {
         return ResponseEntity.ok(courseService.deleteMemberFromCourse(courseId));
     }
 
+    @PreAuthorize("@rightsChecker.getCheckRightsonAdminAndTeacher(#courseId)")
     @DeleteMapping("{courseId}/deleteMember/{id}")
     public ResponseEntity<Void> deleteMember(@PathVariable(name = "courseId") Long courseId,
                                              @PathVariable(name = "id") Long studentId) {
